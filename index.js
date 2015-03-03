@@ -1,5 +1,5 @@
 var static = require('./static');
-static(process.env.PORT || 3000);
+static(process.env.PORT || 5000);
 
 var PeerServer = require('peer').PeerServer;
 var WebSocketServer = require('ws').Server;
