@@ -1,5 +1,5 @@
 {
-  "name": "basic-ss",
+  "name": "not-so-basic-ss",
   "version": "0.0.1",
   "description": "Basic signalling server",
   "main": "index.js",
@@ -8,7 +8,11 @@
   },
   "engines": {
     "node": "0.10.26",
-    "npm": "1.4.3"
+    "npm": "2.6.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fjsousa/not-so-basic-ss"
   },
   "author": "FJSousa",
   "license": "MIT",
