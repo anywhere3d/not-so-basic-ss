@@ -7,8 +7,8 @@
     "start": "node index.js"
   },
   "engines": {
-    "node": "0.10.26",
-    "npm": "2.6.1"
+    "node": "0.10.x",
+    "npm": "2.6.x"
   },
   "repository": {
     "type": "git",
