@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-app.use('/:prefix', express.static('client'));
+app.use('/:prefix', express.static(__dirname + 'client'));
 app.use('/', express.static('client'));
 module.exports = function start(port) {
 
