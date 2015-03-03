@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
-app.use('/:prefix', express.static('.'));
-app.use('/', express.static('.'));
+app.use('/:prefix', express.static('client'));
+app.use('/', express.static('client'));
 module.exports = function start(port) {
 
   server = app.listen(port, function () {
