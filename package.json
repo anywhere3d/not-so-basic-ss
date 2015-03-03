@@ -1,13 +1,14 @@
 {
   "name": "basic-ss",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Basic signalling server",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "0.10.26",
+    "npm": "1.4.3"
   },
   "author": "FJSousa",
   "license": "MIT",
