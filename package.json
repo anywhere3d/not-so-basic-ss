@@ -9,7 +9,7 @@
   "author": "FJSousa",
   "license": "MIT",
   "dependencies": {
-    "node-static": "^0.7.6",
-    "ws": "^0.7.1"
+    "ws": "^0.7.1",
+    "express": "^4.12.2"
   }
 }
