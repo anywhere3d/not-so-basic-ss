@@ -4,7 +4,10 @@
   "description": "Basic signalling server",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "0.10.x"
   },
   "author": "FJSousa",
   "license": "MIT",
