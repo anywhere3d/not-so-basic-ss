@@ -1,14 +1,30 @@
-var static = require('./static');
-static(process.env.PORT || 5000);
-
-var PeerServer = require('peer').PeerServer;
+var express = require('express');
+var ExpressPeerServer = require('peer').ExpressPeerServer;
 var WebSocketServer = require('ws').Server;
 
-var peerServer = PeerServer({port: 9000, path: '/myapp'});
+var app = express();
+app.use('/:prefix', express.static(__dirname + 'client'));
+app.use('/', express.static('client'));
+
+var server = require('http').createServer(app);
+
+var options = {
+    debug: false
+};
+
+var expresspeerserver = ExpressPeerServer(server, options);
+
+app.use('/api', expresspeerserver);
+
+var port = process.env.PORT || 5000;
+server.listen(port, function () {
+  console.log('Basic-ss live at', port);      
+});
+
 var wss = new WebSocketServer({port: 9001});
 
 var peers = {};
-peerServer.on('connection', function (namespacedId) {
+expresspeerserver.on('connection', function (namespacedId) {
   //groups peer ids according to their namespaces
   // { 
   //   default: [ 
@@ -37,7 +53,7 @@ peerServer.on('connection', function (namespacedId) {
   signalMaster(prefix); 
 });
 
-// peerServer.on('disconnect', function (id) {
+// expresspeerserver.on('disconnect', function (id) {
 //   console.log('Peer %s disconnected', id);
 //   var i = peers.indexOf(id);
 //   peers.splice(i, 1);

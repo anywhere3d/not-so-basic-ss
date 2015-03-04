@@ -10,7 +10,6 @@
   <script type="text/javascript">
 
     //object that abstracts communication with peers
-    var host = window.location.host;
     var allPeers;
     var AllPeers = function (array, peer){
       
@@ -47,11 +46,11 @@
     function createPeer(fingerprint) {
 
       var namespace = window.location.pathname;
-      var peer = new Peer(createPId(namespace, fingerprint), {host: host, port: 9000, path: '/myapp'});
+      var peer = new Peer(createPId(namespace, fingerprint), {host: location.hostname, port: 5000, path: '/api'});
 
       peer.on('open', function () {
 
-        var ws = new WebSocket("ws:' + host + ':9001");
+        var ws = new WebSocket(location.origin.replace(/^http/, 'ws'));
 
         ws.onopen = function(event){
           ws.send(peer.id);
