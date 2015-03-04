@@ -1,17 +1,17 @@
 #Not So Basic Signalling Server
 
-Install:
+###Install:
 
 `npm install fjsousa/not-so-basic-ss`
 
-Run
+###Run
 
 `node index`
 
-Open some tabs in your browser at
+Open some tabs in your browser at 
 
 ```
-http://not-so-basic-ss.herokuapp.com/:experiment
+localhost:5000/:experiment
 ```
 
 Where `:experiment` can be any string of caracters a-z.
@@ -26,8 +26,22 @@ allPeers.update(function (peers) {
 
   allPeers.poke();
 });
+```
+
+The other tabs should have some work to do.
+
+
+###Production 
+
+```
+http://not-so-basic-ss.herokuapp.com/:experiment
+```
+
+###List peers
+
+```
+host/list/:experiment
 
 ```
 
 
-The other tabs should have some work to do.
