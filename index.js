@@ -1,15 +1,3 @@
-//groups peer ids according to their namespaces
-// { 
-//   default: [ 
-//     'default-4a78940f2f1f8b03195103a3baafc0db1425405629865787',
-//     'default-4a78940f2f1f8b03195103a3baafc0db1425405629865787'
-//    ],
-//   otherexperiment: [ 
-//     'otherexperiment-4a78940f2f1f8b03195103a3baafc0db1425405629865787',
-//     'otherexperiment-4a78940f2f1f8b03195103a3baafc0db1425405629865787'
-//    ]
-// }
-
 var http = require('http');
 var express = require('express');
 var ExpressPeerServer = require('peer').ExpressPeerServer;
@@ -25,7 +13,18 @@ var expressPeerServer = ExpressPeerServer(server, options);
 
 app.use('/api', expressPeerServer);
 
+
 app.use('/:prefix', express.static(__dirname + '/client'));
+
+//List peer ids according to their prefixs
+// someprefix: [ 
+//   'default-4a78940f2f1f8b03195103a3baafc0db1425405629865787',
+//   'default-4a78940f2f1f8b03195103a3baafc0db1425405629865787'
+// ]
+// otherexperiment: [ 
+//   'otherexperiment-4a78940f2f1f8b03195103a3baafc0db1425405629865787',
+//   'otherexperiment-4a78940f2f1f8b03195103a3baafc0db1425405629865787'
+// ]
 app.use('/list/:prefix', function (req, res) {
 
   var peers = expressPeerServer._clients.peerjs;
