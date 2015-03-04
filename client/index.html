@@ -46,7 +46,7 @@
     function createPeer(fingerprint) {
 
       var namespace = window.location.pathname;
-      var peer = new Peer(createPId(namespace, fingerprint), {host: location.hostname, port: 5000, path: '/api'});
+      var peer = new Peer(createPId(namespace, fingerprint), {host: location.hostname, port: 80, path: '/api'});
 
       peer.on('open', function () {
 
