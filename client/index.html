@@ -6,17 +6,32 @@
 <body>
 
   <script src="//cdn.peerjs.com/0.3/peer.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
   <script src="vendor/fingerprint2.js"></script>
   <script type="text/javascript">
 
+    //Global var
+    var peer;
+
+    //Prefix of the experiment
+    var prefix = window.location.pathname;
+
     //object that abstracts communication with peers
-    var allPeers;
-    var AllPeers = function (array, peer){
-      
-      //remove master Id from peer list
-      var i = array.indexOf(peer.id);
-      array.splice(i, 1);
-      this.list = array;
+    var AllPeers = function (){
+
+      var that = this;
+
+      this.update = function (cb) {
+        $.get('/list'+ prefix, function(peers){
+
+          //remove master Id from peer list
+          var i = peers.indexOf(peer.id);
+          peers.splice(i, 1);
+          that.list = peers;
+
+          cb(peers);
+        });
+      };
 
       this.poke = function(){
 
@@ -32,40 +47,27 @@
       };
     };
 
-    new Fingerprint2().get(function(fprint){
+    //Finger print the browser to create unique id
+    new Fingerprint2().get(onFingerPrint);
+
+    function onFingerPrint(fp){
       
       try {
-        createPeer(fprint);
+        createPeer(fp);
       }
       catch (e) {
         console.error(e);
       }
-    });
-
+    }
 
     function createPeer(fingerprint) {
 
-      var namespace = window.location.pathname;
-      var peer = new Peer(createPId(namespace, fingerprint), {host: location.hostname, port: 80, path: '/api'});
+      //5000 - development
+      //80 - produtcion
+      var port = (location.hostname === 'localhost') ? 5000 : 80;
 
-      peer.on('open', function () {
-
-        var ws = new WebSocket(location.origin.replace(/^http/, 'ws'));
-
-        ws.onopen = function(event){
-          ws.send(peer.id);
-        };
-        
-        //Master peer will receive a message with the peer list
-        ws.onmessage = function (msg) {
-          var peersList = JSON.parse(msg.data);
-          console.log('Master Peer!');
-
-          allPeers = new AllPeers(peersList, peer);
-
-          console.log('Current peers: ', allPeers.list);
-        };
-      });
+      //Connect to signalling server
+      peer = new Peer(createPId(prefix, fingerprint), {host: location.hostname, port: port, path: '/api'});
 
       //Worker peer will receive something to do
       peer.on('connection', function (conn) {

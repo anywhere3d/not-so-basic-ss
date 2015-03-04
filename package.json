@@ -19,6 +19,7 @@
   "dependencies": {
     "ws": "^0.7.1",
     "express": "^4.12.2",
-    "peer": "^0.2.8"
+    "peer": "^0.2.8",
+    "underscore": "^1.8.2"
   }
 }
